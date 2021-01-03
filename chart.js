@@ -5,8 +5,7 @@ d3.json(data_url, function (json) {
 
     w = 800
     h = 500
-    pX = 40
-    pY = 40
+    p = 40
 
     // create gdp and date lists
     const data_date = data.map(item => item[0])
@@ -27,7 +26,7 @@ d3.json(data_url, function (json) {
 
     // set domain and range of scale to cover number of days
     xScale.domain([firstYear, lastYear])
-        .range([pX, w - pX])
+        .range([p, w - p])
 
     // set the Y axis scale
     const yScale = d3.scaleLinear()
@@ -35,7 +34,7 @@ d3.json(data_url, function (json) {
     console.log(minY)
     const maxY = d3.max(gdp)
     yScale.domain([0, maxY])
-        .range([h - pY, pY])
+        .range([h - p, p])
 
 
     // create bar chart
@@ -50,27 +49,27 @@ d3.json(data_url, function (json) {
         .append('rect')
         .attr('class', 'bar')
         .attr('width', 5)
-        .attr('height', (d) => h - yScale(d[1]))
+        .attr('height', (d) => h - yScale(d[1]) - p)
         .attr('x', (d, i) => {
             let year = new Date(d[0]);
             yearNum = (year.getFullYear())
             return xScale(yearNum)
         })
-        .attr('y', (d, i) => yScale(d[1]) - pX)
+        .attr('y', (d, i) => yScale(d[1]))
 
     // add the axes
     const xAxis = d3.axisBottom().scale(xScale)
 
     svg.append("g")
         .attr("id", 'x-axis')
-        .attr("transform", "translate(0," + (h - pY) + ")")
+        .attr("transform", "translate(0," + (h - p) + ")")
         .call(xAxis);
 
     const yAxis = d3.axisLeft(yScale)
 
     svg.append("g")
         .attr("id", 'y-axis')
-        .attr("transform", "translate(" + pX + ",0)")
+        .attr("transform", "translate(" + p + ",0)")
         .call(yAxis);
 
 });

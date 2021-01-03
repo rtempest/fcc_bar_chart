@@ -1,6 +1,10 @@
 svg {
-    background-color: grey;
+    /* background-color: grey; */
     padding: 20px;
+}
+
+.bar {
+    fill: grey;
 }
 
 .bar:hover {
