@@ -1,7 +1,9 @@
 svg {
     background-color: grey;
+    /* padding: 50px; */
 }
 
 .bar:hover {
     fill: pink;
 }
+
