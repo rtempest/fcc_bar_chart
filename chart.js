@@ -38,7 +38,7 @@ d3.json(data_url, function (json) {
 
 
     // create bar chart
-    const svg = d3.select("div")
+    const svg = d3.select("#chart")
         .append("svg")
         .attr("width", w)
         .attr("height", h);
@@ -47,6 +47,8 @@ d3.json(data_url, function (json) {
         .data(data)
         .enter()
         .append('rect')
+        .attr('data-date', (d, i) => data_date[i])
+        .attr('data-gdp', (d, i) => gdp[i])
         .attr('class', 'bar')
         .attr('width', 5)
         .attr('height', (d) => h - yScale(d[1]) - p)
@@ -72,5 +74,22 @@ d3.json(data_url, function (json) {
         .attr("transform", "translate(" + p + ",0)")
         .call(yAxis);
 
+    // create the tooltip
+    const tooltip = d3.select('body')
+        .append('div')
+        .attr('id', 'tooltip')
+        .attr('style', 'position:absolute; opacity:0; z-index:10;')
+        .text('this is a tooltip')
+
+    // add the tooltip on mouseover event
+    bars
+        .on('mouseover', () => d3.select('#tooltip').style("opacity", 1))
+        .on("mousemove", function () {
+            return tooltip.style("top", (d3.event.pageY - 10) + "p")
+                .style("left", (d3.event.pageX + 10) + "p");
+        })
+        .on('mouseout', () => d3.select('#tooltip').style("opacity", 0))
 });
+
+
 
