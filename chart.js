@@ -82,11 +82,11 @@ d3.json(data_url, function (json) {
                 .style("left", d3.event.pageX)
                 .style("top", d3.event.pageY)
         })
-    // .on("mousemove", function (event) {
-    //     return tooltip.style("top", (d3.event.pageY - 10) + "p")
-    //         .style("left", (d3.event.pageX + 10) + "p");
-    // })
-    // .on('mouseout', () => d3.select('#tooltip').style("opacity", 0))
+        // .on("mousemove", function (event) {
+        //     return tooltip.style("top", (d3.event.pageY - 10) + "p")
+        //         .style("left", (d3.event.pageX + 10) + "p");
+        // })
+        .on('mouseout', () => d3.select('#tooltip').attr("class", 'tooltip-off'))
 });
 
 
