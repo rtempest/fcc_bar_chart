@@ -17,5 +17,17 @@ align-items: center;
     fill: pink;
 }
 
+.tooltip-off {
+    position:absolute; 
+    opacity:0; 
+    z-index:10;
+}
+
+.tooltip-on {
+    background-color: plum;
+    opacity: 1;
+    display: inline-block;
+}
+
 
 

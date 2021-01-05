@@ -29,8 +29,8 @@ d3.json(data_url, function (json) {
     yScale.domain([0, maxY])
         .range([h - p, p])
 
-    const container = d3.select('#chart')
-        .append('text', 'hello')
+    // const container = d3.select('#chart')
+    //     .append('text', 'hello')
 
     // create bar chart
     const svg = d3.select("#chart")
@@ -69,20 +69,18 @@ d3.json(data_url, function (json) {
         .call(yAxis);
 
     // create the tooltip
-    const tooltip = d3.select('body')
+    const tooltip = d3.select('#chart')
         .append('div')
         .attr('id', 'tooltip')
-        .attr('style', 'position:absolute; opacity:0; z-index:10;')
+        .attr('class', 'tooltip-off')
         .text('this is a tooltip')
 
     // add the tooltip on mouseover event
     bars
         .on('mouseover', () => {
-            d3.select('#tooltip').style("opacity", 1)
+            d3.select('#tooltip').attr('class', 'tooltip-on')
                 .style("left", d3.event.pageX)
-                .style("background-color", 'blue')
                 .style("top", d3.event.pageY)
-                .style("display", "inline-block")
         })
     // .on("mousemove", function (event) {
     //     return tooltip.style("top", (d3.event.pageY - 10) + "p")
