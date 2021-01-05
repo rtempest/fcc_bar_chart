@@ -2,18 +2,13 @@ const data_url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenc
 
 d3.json(data_url, function (json) {
     const data = json.data
-    // console.log(data)
 
     w = 950
     h = 500
     p = 40
 
     // create gdp and date lists
-    let formatDate = d3.timeFormat("%Y-%m-%d")
     const data_date = data.map(item => new Date(item[0] + "T00:00"))
-    // console.log(typeof data_date[3])
-    // console.log(data_date[0])
-
     const gdp = data.map(item => item[1])
 
     // set the X axis scale
@@ -22,6 +17,7 @@ d3.json(data_url, function (json) {
     const maxX = d3.max(data_date)
     console.log(minX)
     console.log(maxX)
+
     // set domain and range of scale
     const xScale = d3.scaleTime()
         .domain([minX, maxX])
@@ -29,14 +25,12 @@ d3.json(data_url, function (json) {
 
     // set the Y axis scale
     const yScale = d3.scaleLinear()
-    const minY = d3.min(gdp)
     const maxY = d3.max(gdp)
     yScale.domain([0, maxY])
         .range([h - p, p])
 
     const container = d3.select('#chart')
         .append('text', 'hello')
-        .append('svg')
 
     // create bar chart
     const svg = d3.select("#chart")
@@ -55,7 +49,6 @@ d3.json(data_url, function (json) {
         .attr('height', (d) => h - yScale(d[1]) - p)
         .attr('x', (d, i) => {
             let year = new Date(data_date[i]);
-            console.log(year)
             return xScale(year)
         })
         .attr('y', (d, i) => yScale(d[1]))
@@ -90,7 +83,6 @@ d3.json(data_url, function (json) {
                 .style("background-color", 'blue')
                 .style("top", d3.event.pageY)
                 .style("display", "inline-block")
-
         })
     // .on("mousemove", function (event) {
     //     return tooltip.style("top", (d3.event.pageY - 10) + "p")
