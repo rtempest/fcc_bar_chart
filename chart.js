@@ -15,8 +15,6 @@ d3.json(data_url, function (json) {
     // console.log(data_date)
     const minX = d3.min(data_date)
     const maxX = d3.max(data_date)
-    console.log(minX)
-    console.log(maxX)
 
     // set domain and range of scale
     const xScale = d3.scaleTime()
@@ -29,14 +27,18 @@ d3.json(data_url, function (json) {
     yScale.domain([0, maxY])
         .range([h - p, p])
 
-    // const container = d3.select('#chart')
-    //     .append('text', 'hello')
-
     // create bar chart
     const svg = d3.select("#chart")
         .append("svg")
         .attr("width", w)
         .attr("height", h)
+
+    svg.append('text')
+        .attr('id', 'title')
+        .attr('text-anchor', 'middle')
+        .attr('x', w / 2)
+        .attr('y', p / 2)
+        .text('United States GDP')
 
     const bars = svg.selectAll('rect')
         .data(data)
@@ -77,7 +79,6 @@ d3.json(data_url, function (json) {
     // add the tooltip on mouseover event
     bars
         .on('mouseover', (event) => {
-            console.log(event)
             d3.select('#tooltip').attr('class', 'tooltip-on')
                 .html(() => {
                     dataDate = new Date(event[0])
