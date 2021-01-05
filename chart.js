@@ -79,7 +79,10 @@ d3.json(data_url, function (json) {
     // add the tooltip on mouseover event
     bars
         .on('mouseover', (event) => {
-            d3.select('#tooltip').attr('class', 'tooltip-on')
+            d3.select('#tooltip')
+                .attr('class', 'tooltip-on')
+                .attr('x', 500)
+                .attr('y', 50)
                 .html(() => {
                     dataDate = new Date(event[0])
                     month = dataDate.getMonth()
@@ -93,7 +96,7 @@ d3.json(data_url, function (json) {
                         q = 'Q4'
                     }
                     return `<p>${dataDate.getFullYear()} ${q}<br>
-                    GDP: $${event[1]}</p>`
+                    $${event[1]}</p>`
                 })
                 .attr('data-date', event[0])
         })
