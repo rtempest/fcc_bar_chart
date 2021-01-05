@@ -3,6 +3,12 @@ svg {
     padding: 20px;
 }
 
+/* #chart {
+    display: flex;
+    align-items: center;
+    justify-items: flex-start;
+} */
+
 .bar {
     fill: grey;
 }
@@ -10,4 +16,6 @@ svg {
 .bar:hover {
     fill: pink;
 }
+
+
 
