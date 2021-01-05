@@ -69,23 +69,34 @@ d3.json(data_url, function (json) {
         .call(yAxis);
 
     // create the tooltip
-    const tooltip = d3.select('#chart')
+    const tooltip = d3.select('body')
         .append('div')
         .attr('id', 'tooltip')
         .attr('class', 'tooltip-off')
-        .text('this is a tooltip')
 
     // add the tooltip on mouseover event
     bars
-        .on('mouseover', () => {
+        .on('mouseover', (event) => {
+            console.log(event)
             d3.select('#tooltip').attr('class', 'tooltip-on')
-                .style("left", d3.event.pageX)
-                .style("top", d3.event.pageY)
+                .html(() => {
+                    dataDate = new Date(event[0])
+                    month = dataDate.getMonth()
+                    if (month === 2) {
+                        q = 'Q1'
+                    } else if (month === 5) {
+                        q = 'Q2'
+                    } else if (month === 8) {
+                        q = 'Q3'
+                    } else {
+                        q = 'Q4'
+                    }
+                    return `<p>${dataDate.getFullYear()} ${q}<br>
+                    GDP: $${event[1]}</p>`
+                })
+                .attr('data-date', event[0])
         })
-        // .on("mousemove", function (event) {
-        //     return tooltip.style("top", (d3.event.pageY - 10) + "p")
-        //         .style("left", (d3.event.pageX + 10) + "p");
-        // })
+        // set mouseout to disappear tooltip
         .on('mouseout', () => d3.select('#tooltip').attr("class", 'tooltip-off'))
 });
 

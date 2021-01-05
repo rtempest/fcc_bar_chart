@@ -17,6 +17,15 @@ align-items: center;
     fill: pink;
 }
 
+#tooltip {
+    padding: 10px;
+    border-radius: 10%;
+}
+
+p {
+    padding: 0;
+}
+
 .tooltip-off {
     position:absolute; 
     opacity:0; 
