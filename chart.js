@@ -5,7 +5,7 @@ d3.json(data_url, function (json) {
 
     w = 950
     h = 500
-    p = 40
+    p = 60
 
     // create gdp and date lists
     const data_date = data.map(item => new Date(item[0] + "T00:00"))
@@ -70,19 +70,26 @@ d3.json(data_url, function (json) {
         .attr("transform", "translate(" + p + ",0)")
         .call(yAxis);
 
+    // add the axes labels
+    svg.append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', p / 5)
+        .attr('x', 0 - h / 2)
+        .style('text-anchor', 'middle')
+        .text('GDP (Billion $)')
     // create the tooltip
     const tooltip = d3.select('body')
         .append('div')
         .attr('id', 'tooltip')
         .attr('class', 'tooltip-off')
+        .style('left', '400px')
+        .style('top', '400px')
 
     // add the tooltip on mouseover event
     bars
         .on('mouseover', (event) => {
             d3.select('#tooltip')
                 .attr('class', 'tooltip-on')
-                .attr('x', 500)
-                .attr('y', 50)
                 .html(() => {
                     dataDate = new Date(event[0])
                     month = dataDate.getMonth()
@@ -95,8 +102,8 @@ d3.json(data_url, function (json) {
                     } else {
                         q = 'Q4'
                     }
-                    return `<p>${dataDate.getFullYear()} ${q}<br>
-                    $${event[1]}</p>`
+                    return `${dataDate.getFullYear()} ${q}<br>
+                    $${event[1]} billion`
                 })
                 .attr('data-date', event[0])
         })
