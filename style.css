@@ -40,7 +40,8 @@ margin-top: 5%;
     margin: auto;
     text-align: center;
     color: white;
-    margin-top: 20px
+    margin-top: 20px;
+    /* position: absolute; */
 }
 
 .tooltip-off {
